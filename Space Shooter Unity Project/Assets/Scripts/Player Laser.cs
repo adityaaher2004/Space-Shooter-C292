@@ -17,6 +17,11 @@ public class PlayerLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float maxLaserHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 1.15f, 0)).y;
+        if (transform.position.y > maxLaserHeight)
+        {
+            Destroy(gameObject);
+        }
         transform.position += new Vector3(0, laserSpeed, 0) * Time.deltaTime;
     }
 }
