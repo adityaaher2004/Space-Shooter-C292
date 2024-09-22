@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class PowerUp : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
 
-    [SerializeField] GameManager manager;
+    [SerializeField] float speed = 7f;
 
-    int damage = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,22 +28,11 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("Health Collided Reached");
             Destroy(gameObject);
             Player player = collision.gameObject.GetComponent<Player>();
-            player.enemyHit(damage);
+            player.givePowerUp();
 
-        }
-        else if (collision.gameObject.tag == "Laser")
-        {
-            // Check and destroy enemy only if it is on screen
-            Vector3 enemyPos = Camera.main.WorldToViewportPoint(transform.position);
-
-            if (enemyPos.y >= 0f && enemyPos.y <= 1f) 
-            { 
-                GameManager.instance.increaseScore(10);
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
-            }
         }
     }
 }

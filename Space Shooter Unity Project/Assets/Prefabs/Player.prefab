@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laser: {fileID: 3340761720018377767, guid: 096579be975b7dc4fa36e165b4f0ee09, type: 3}
+  manager: {fileID: 0}
+  moveSpeed: 0
+  currentHealth: 0
 --- !u!60 &3431348874410348213
 PolygonCollider2D:
   m_ObjectHideFlags: 0

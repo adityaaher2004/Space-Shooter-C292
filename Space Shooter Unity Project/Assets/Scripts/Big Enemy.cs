@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class BigEnemy : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
 
     [SerializeField] GameManager manager;
 
+    int health = 3;
     int damage = 1;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -41,11 +41,32 @@ public class Enemy : MonoBehaviour
             // Check and destroy enemy only if it is on screen
             Vector3 enemyPos = Camera.main.WorldToViewportPoint(transform.position);
 
-            if (enemyPos.y >= 0f && enemyPos.y <= 1f) 
-            { 
-                GameManager.instance.increaseScore(10);
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
+            if (enemyPos.y >= 0f && enemyPos.y <= 1f)
+            {
+                health -= 1;
+                if (health <= 0)
+                {
+                    GameManager.instance.increaseScore(10);
+                    Destroy(gameObject);
+                    Destroy(collision.gameObject);
+                }
+            }
+        }
+
+        else if (collision.gameObject.tag == "Big Laser")
+        {
+            // Check and destroy enemy only if it is on screen
+            Vector3 enemyPos = Camera.main.WorldToViewportPoint(transform.position);
+
+            if (enemyPos.y >= 0f && enemyPos.y <= 1f)
+            {
+                health -= 2;
+                if (health <= 0)
+                {
+                    GameManager.instance.increaseScore(10);
+                    Destroy(gameObject);
+                    Destroy(collision.gameObject);
+                }
             }
         }
     }

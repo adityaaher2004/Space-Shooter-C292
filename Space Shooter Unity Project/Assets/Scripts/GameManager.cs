@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] TextMeshProUGUI powerUpText;
     [SerializeField] GameObject gameOverText;
 
     private void Awake()
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Submit") && isGameOver)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("MainScene");
         }
     }
 
@@ -38,6 +40,16 @@ public class GameManager : MonoBehaviour
     {
         score += pts;
         scoreText.text = "Score : " + score;
+    }
+
+    public void setHealth(int health)
+    {
+        healthText.text = "Health : "  + health;
+    }
+
+    public void setPowerUp(int points)
+    {
+        powerUpText.text = "x  " + points;
     }
 
     public void GameOver()

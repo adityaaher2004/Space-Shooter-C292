@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     float y_pos;
     [SerializeField] GameObject laser;
+    [SerializeField] GameManager manager;
     [SerializeField] float moveSpeed;
 
     Vector3 spawnPosition;
@@ -13,12 +14,15 @@ public class Player : MonoBehaviour
     float xMin;
     float xMax;
 
-    Camera cam;
+    int maxHealth = 10;
+    public int currentHealth;
+
+    int currentPowerUp = 0;
 
     private void Awake()
     {
-        cam = GetComponent<Camera>();
         spawnPosition = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.15f, 0));
+        currentHealth = 5;
     }
 
     // Start is called before the first frame update
@@ -27,6 +31,7 @@ public class Player : MonoBehaviour
         xMin = Camera.main.ViewportToWorldPoint(new Vector3(0.15f, 0, 0)).x;
         xMax = Camera.main.ViewportToWorldPoint(new Vector3(0.85f, 0, 0)).x;
         y_pos = transform.position.y;
+        GameManager.instance.setHealth(currentHealth);
     }
 
     // Update is called once per frame
@@ -54,5 +59,31 @@ public class Player : MonoBehaviour
             Instantiate(laser, transform.position, Quaternion.identity);
         }
 
+    }
+
+    public void enemyHit(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            GameManager.instance.GameOver();
+        }
+        GameManager.instance.setHealth(currentHealth);
+    }
+
+    public void giveHealth()
+    {
+        if (currentHealth <= maxHealth)
+        {
+            currentHealth += 1;
+        }
+        GameManager.instance.setHealth(currentHealth);
+    }
+
+    public void givePowerUp()
+    {
+        currentPowerUp += 1;
+        GameManager.instance.setPowerUp(currentPowerUp);
     }
 }
