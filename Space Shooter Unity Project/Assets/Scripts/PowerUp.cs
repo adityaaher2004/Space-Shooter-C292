@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
 
-    [SerializeField] float speed = 7f;
+    [SerializeField] float speed = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +28,9 @@ public class PowerUp : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Health Collided Reached");
             Destroy(gameObject);
             Player player = collision.gameObject.GetComponent<Player>();
-            player.givePowerUp();
+            player.givePowerUp(5);
 
         }
     }

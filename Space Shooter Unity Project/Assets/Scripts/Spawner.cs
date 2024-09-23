@@ -6,10 +6,13 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] float enemySpawnInterval = 1.25f;
     [SerializeField] float healthSpawnInterval = 10f;
-    [SerializeField] float powerUpSpawnInterval = 20f;
+    [SerializeField] float powerUpSpawnInterval = 2f;
+    [SerializeField] float playerReactorInterval = 3f;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject healthPrefab;
     [SerializeField] GameObject powerUpPrefab;
+
+    [SerializeField] Player player;
 
     float xMin;
     float xMax;
@@ -24,13 +27,19 @@ public class Spawner : MonoBehaviour
 
         InvokeRepeating("SpawnEnemy", 2f, enemySpawnInterval);
         InvokeRepeating("SpawnHealth", 20f, healthSpawnInterval);
-        InvokeRepeating("SpawnPowerUp", 30f, powerUpSpawnInterval);
+        InvokeRepeating("SpawnPowerUp", 1f, powerUpSpawnInterval);
+        InvokeRepeating("PlayerReactorGenerator", 1f, playerReactorInterval);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void PlayerReactorGenerator()
+    {
+        player.givePowerUp(player.maxHealthLevel);
     }
 
     void SpawnEnemy()

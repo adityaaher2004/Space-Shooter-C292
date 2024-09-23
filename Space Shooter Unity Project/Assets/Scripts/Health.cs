@@ -28,7 +28,6 @@ public class Health : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Health Collided Reached");
             Destroy(gameObject);
             Player player = collision.gameObject.GetComponent<Player>();
             player.giveHealth();

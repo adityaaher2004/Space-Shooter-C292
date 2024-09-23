@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
+    [SerializeField] float speed = 2f;
 
     [SerializeField] GameManager manager;
 
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
             player.enemyHit(damage);
 
         }
-        else if (collision.gameObject.tag == "Laser")
+        else if (collision.gameObject.tag == "Laser" || collision.gameObject.tag == "Big Laser")
         {
             // Check and destroy enemy only if it is on screen
             Vector3 enemyPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -47,6 +47,14 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
             }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Last Defence Line")
+        {
+            GameManager.instance.enemyCrossDefenceLine(1);
         }
     }
 }

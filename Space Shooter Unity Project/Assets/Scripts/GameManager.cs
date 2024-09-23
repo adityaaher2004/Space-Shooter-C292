@@ -14,7 +14,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] TextMeshProUGUI powerUpText;
+    [SerializeField] TextMeshProUGUI insufficientPowerUpText;
     [SerializeField] GameObject gameOverText;
+
+    [SerializeField] Player player;
+    
+
+    [SerializeField] TextMeshProUGUI laserLevelNumber;
+    [SerializeField] TextMeshProUGUI speedLevelNumber;
+    [SerializeField] TextMeshProUGUI maxHealthLevelNumber;
 
     private void Awake()
     {
@@ -36,6 +44,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void enemyCrossDefenceLine(int damage)
+    {
+        player.enemyHit(damage);
+    }
+
     public void increaseScore(int pts)
     {
         score += pts;
@@ -49,12 +62,37 @@ public class GameManager : MonoBehaviour
 
     public void setPowerUp(int points)
     {
-        powerUpText.text = "x  " + points;
+        powerUpText.text = "" + points;
+    }
+
+    public void setLaserLevel(int points)
+    {
+        laserLevelNumber.text = "" + points;
+    }
+
+    public void setSpeedLevel(int points)
+    {
+        speedLevelNumber.text = "" + points;
+    }
+
+    public void setMaxHealthLevel(int points)
+    {
+        maxHealthLevelNumber.text = "" + points;
     }
 
     public void GameOver()
     {
         isGameOver = true;
         gameOverText.SetActive(true);
+    }
+
+    public void insufficientTextActive(string text)
+    {
+        insufficientPowerUpText.text = text;
+    }
+
+    public void insufficientTextInactive()
+    {
+        insufficientPowerUpText.text = "";
     }
 }
