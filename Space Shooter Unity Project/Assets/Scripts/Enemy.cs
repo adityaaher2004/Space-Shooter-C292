@@ -54,7 +54,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Last Defence Line")
         {
-            GameManager.instance.enemyCrossDefenceLine(1);
+            Player player = GetComponent<Player>();
+            player.enemyHit(1);
         }
     }
 }

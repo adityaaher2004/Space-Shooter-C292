@@ -35,6 +35,7 @@ public class Ability : MonoBehaviour
 
     public void decreaseSpeed()
     {
+        Debug.Log("Reached");
         player.decreaseSpeedLevel();
     }
 
